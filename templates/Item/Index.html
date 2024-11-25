@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container" style="margin-top: 50px;">
+<div class="row">
+{% for item in items %}
+<div class="col-md-4 mb-5">
+<div class="card" style="width: 18rem;">
+   
+    <div class="card-body">
+      <h5 class="card-title">{{ item.name }}</h5>
+      <p class="card-text">{{ item.category }} <br>
+      <small>Stock: {{ item.stock }}</small></p>
+      <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Details</a>
+    </div>
+  </div>
+    
+  </div>
+{% endfor %}
+</div>
+
+<div class="pagination">
+  <span class="step-links">
+      {% if items.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ items.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ items.number }} of {{ items.paginator.num_pages }}.
+      </span>
+
+      {% if items.has_next %}
+          <a href="?page={{ items.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+          <a href="?page={{ items.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+  </span>
+</div>
+</div>
+
+{% endblock %}

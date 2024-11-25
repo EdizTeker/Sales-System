@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+{% for cart_item in cart_items %}
+
+    
+<div class="col-md-4 mb-3" style="margin-top: 30px; margin-left: 30px;">
+    <div class="list-group ">
+        <a href="{{ cart_item.link }}" class="list-group-item list-group-item-action" aria-current="true">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ cart_item.name }}</h5>
+            <small></small>
+          </div>
+          <p class="mb-1">{{ cart_item.category }}</p>
+          <small>Quantity: {{ cart_item.quantity }}</small>
+        </a>
+      </div>
+</div>      
+{% endfor %}
+
+{% if cart_items %}
+    <form method="post" action="{% url 'item:purchase' %}">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-primary" value="Buy" style="margin-left: 30px;">
+    </form>
+{% endif %}
+
+{% endblock %}
